@@ -1,9 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk, ImageDraw
-import os
 
-# Blood Compatibility Dictionary
 compatibility = {
     "O-": ["O-"],
     "O+": ["O-", "O+"],
@@ -15,7 +13,6 @@ compatibility = {
     "AB+": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"]
 }
 
-# Blood Type Inheritance Dictionary
 inheritance_abo = {
     ("A", "A"): ["A", "A"],
     ("A", "O"): ["A", "O"],
@@ -35,7 +32,7 @@ inheritance_rh = {
     ("-", "-"): ["-"]
 }
 
-# Function to Predict Blood Type Inheritance
+# Function to predict blood type inheritance
 def predict_blood_type():
     father = father_blood.get()
     mother = mother_blood.get()
@@ -52,7 +49,7 @@ def predict_blood_type():
     messagebox.showinfo("Prediction",
                         f"Possible blood types for children: {set(possible_blood_types)}\nPossible Rh factors: {set(possible_rh)}")
 
-# Function to Check Blood Compatibility
+# Function to check blood compatibility
 def compatibility_blood_type():
     user_type = user_blood.get()
 
@@ -64,7 +61,7 @@ def compatibility_blood_type():
     messagebox.showinfo("Compatibility", f"You can receive blood from: {donors}")
 
 
-# GUI Setup
+# GUI
 root = tk.Tk()
 root.configure(bg="white")
 root.title("HemoApp - Blood Compatibility & Blood Type Prediction")
@@ -87,25 +84,25 @@ draw.ellipse((0, 0, size, size), fill=255)
 circle_image = Image.new("RGBA", (size, size))
 circle_image.paste(image, (0, 0), mask)
 
-# Convert to Tkinter-compatible format
+# Convert to tkinter compatible format
 photo = ImageTk.PhotoImage(circle_image)
 
-# Create a label to display the round image (Ensure it's visible)
+# Create a label to display the round image
 label = tk.Label(root, image=photo, bg="white")
 label.place(x=5, y=280)
 
-# Blood Type Compatibility Section
+# Blood type compatibility section
 tk.Label(root, text="Check Blood Compatibility", font=("Arial", 16, "bold"), bg="white", fg="black").pack(pady=10)
 
 user_blood = tk.StringVar()
-user_blood.set("O-")  # Default selection
+user_blood.set("O-")
 
-# OptionMenu for Blood Type
+# Option menu for blood type
 user_blood_option = tk.OptionMenu(root, user_blood, *compatibility.keys())
 user_blood_option.config(bg="white", fg="black", relief="solid", highlightthickness=0)
 user_blood_option.pack(pady=5)
 
-# Button to Check Compatibility
+# Button to check compatibility
 #check_compatibility_button = tk.Button(root, text="Check Compatibility", command=compatibility_blood_type, bg="lightgray", fg="black", relief="solid")
 #check_compatibility_button.pack(pady=5)
 
@@ -113,21 +110,21 @@ check_compatibility_button = tk.Button(
     root,
     text="Check Compatibility",
     command=compatibility_blood_type,
-    bg="#4CAF50",      # A vibrant green background color
-    fg="white",        # White text color for contrast
-    font=("Arial", 14, "bold"),  # Modern font with larger text
-    relief="raised",   # Raised effect to make the button look 3D
-    bd=5,              # Border width
-    width=15,          # Width of the button
-    height=2,          # Height of the button
-    highlightthickness=0,  # Removes the highlight border when clicked
-    activebackground="#45a049",  # Change background when pressed
-    activeforeground="white",  # Change text color when pressed
+    bg="#4CAF50",
+    fg="white",
+    font=("Arial", 14, "bold"),
+    relief="raised",
+    bd=5,
+    width=15,
+    height=2,
+    highlightthickness=0,
+    activebackground="#45a049",
+    activeforeground="white",
 )
 check_compatibility_button.pack(pady=10)
 
 
-# Blood Type Inheritance Section
+# Blood type inheritance section
 tk.Label(root, text="Predict Child’s Blood Type", font=("Arial", 16, "bold"), bg="white", fg="black").pack(pady=10)
 
 father_blood = tk.StringVar()
@@ -140,31 +137,31 @@ mother_blood.set("O")
 rh_father_var.set("+")
 rh_mother_var.set("-")
 
-# Father Blood Type Label and OptionMenu
+# Father blood type label and Option menu
 tk.Label(root, text="Father's Blood Type", bg="white", fg="black").pack()
 father_blood_option = tk.OptionMenu(root, father_blood, *["A", "B", "AB", "O"])
 father_blood_option.config(bg="white", fg="black", relief="solid", highlightthickness=0)
 father_blood_option.pack(pady=5)
 
-# Father Rh Factor Label and OptionMenu
+# Father Rh factor label and Option menu
 tk.Label(root, text="Father's Rh Factor", bg="white", fg="black").pack()
 rh_father_option = tk.OptionMenu(root, rh_father_var, "+", "-")
 rh_father_option.config(bg="white", fg="black", relief="solid", highlightthickness=0)
 rh_father_option.pack(pady=5)
 
-# Mother Blood Type Label and OptionMenu
+# Mother Blood type Label and Option menu
 tk.Label(root, text="Mother's Blood Type", bg="white", fg="black").pack()
 mother_blood_option = tk.OptionMenu(root, mother_blood, *["A", "B", "AB", "O"])
 mother_blood_option.config(bg="white", fg="black", relief="solid", highlightthickness=0)
 mother_blood_option.pack(pady=5)
 
-# Mother Rh Factor Label and OptionMenu
+# Mother Rh factor label and Option menu
 tk.Label(root, text="Mother's Rh Factor", bg="white", fg="black").pack()
 rh_mother_option = tk.OptionMenu(root, rh_mother_var, "+", "-")
 rh_mother_option.config(bg="white", fg="black", relief="solid", highlightthickness=0)
 rh_mother_option.pack(pady=5)
 
-# Button to Predict Blood Type
+# Button to predict blood type
 #predict_button = tk.Button(root, text="Predict Blood Type", command=predict_blood_type, bg="lightgray", fg="black", bd=0, relief="flat")
 #predict_button.pack(padx=20, pady=20)
 
@@ -172,20 +169,20 @@ predict_button = tk.Button(
     root,
     text="Predict Blood Type",
     command=predict_blood_type,
-    bg="black",      # A vibrant green background color
-    fg="white",        # White text color for contrast
-    font=("Arial", 14, "bold"),  # Modern font with larger text
-    relief="raised",   # Raised effect to make the button look 3D
-    bd=5,              # Border width
-    width=15,          # Width of the button
-    height=2,          # Height of the button
-    highlightthickness=0,  # Removes the highlight border when clicked
-    activebackground="#45a049",  # Change background when pressed
-    activeforeground="white",  # Change text color when pressed
+    bg="black",
+    fg="white",
+    font=("Arial", 14, "bold"),
+    relief="raised",
+    bd=5,
+    width=15,
+    height=2,
+    highlightthickness=0,
+    activebackground="#45a049",
+    activeforeground="white",
 )
 predict_button.pack(pady=10)
 
-# Run the App
+
 root.mainloop()
 
 
